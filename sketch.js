@@ -107,11 +107,12 @@ function draw() {
     translate(300, 0)
     beginShape()
     stroke(0, 0, 100, 80)
+    let scaleFactor = 2
     for (let i = 0; i < wave.length; i++) {
-        vertex(i, wave[i])
+        vertex(i/scaleFactor, wave[i])
     }
 
-    if (wave.length > 200) {
+    if (wave.length > 200*scaleFactor) {
         wave.pop()
     }
 
