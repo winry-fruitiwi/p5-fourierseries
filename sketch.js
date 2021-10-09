@@ -11,7 +11,7 @@ coding plan:
 
  */
 let font
-let angle = 0, a = 0
+let time = 0
 // we'll have a wave! It could very well result in a square wave, but we only
 // have so much space. That means we'll need to trim it at times.
 let wave = []
@@ -34,7 +34,7 @@ function getSawtoothWaveValue(i) {
         r *= -1
     }
 
-    return new functionValues(r*cos(n*angle), r*sin(n*angle), r)
+    return new functionValues(r*cos(n*time), r*sin(n*time), r)
 }
 
 // my new hybrid sawtooth-square wave that I accidentally got! Is it a
@@ -47,13 +47,13 @@ function getSquareToothWaveValue(i) {
         r *= -2
     }
 
-    return new functionValues(r*cos(n*angle), r*sin(n*angle), r)
+    return new functionValues(r*cos(n*time), r*sin(n*time), r)
 }
 
 function getSquareWaveValue(i) {
     let n = i*2 + 1
     let r =  anchorR*4/(n*PI)
-    return new functionValues(r*cos(n*angle), r*sin(n*angle), r)
+    return new functionValues(r*cos(n*time), r*sin(n*time), r)
 }
 
 // this is a container holding the x, y, and radius values of a fourier
@@ -74,8 +74,8 @@ function draw() {
     strokeWeight(1)
     translate(width/4, height/2)
 
-    // without this simple modification we'd get a wheel.
-    angle = a/50
+    // angular velocity is too fast without this scale factor
+    time = frameCount/50
 
     let prev = new p5.Vector(0, 0);
     let functionValue = new p5.Vector(0, 0);
@@ -116,6 +116,4 @@ function draw() {
     }
 
     endShape()
-
-    a++
 }
